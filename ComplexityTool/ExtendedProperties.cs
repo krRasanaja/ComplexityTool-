@@ -9,6 +9,6 @@ namespace ComplexityTool
     public class ExtendedProperties
     {
         public string ClassName { get; set; }
-        public int Vaue { get; set; }
+        public int Value { get; set; }
     }
 }

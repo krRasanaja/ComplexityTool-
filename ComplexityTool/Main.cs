@@ -45,14 +45,28 @@ namespace ComplexityTool
                 dataGridView.Rows[i].Cells[1].Value = line;
                 dataGridView.Rows[i].Cells[2].Value = scoreCs;
                 if(GlobalData.isExtendedRow)
-                    dataGridView.Rows[i].Cells[9].Value = GlobalData.ExtendCount;
-                else
-                    dataGridView.Rows[i].Cells[9].Value = "0";
+                {
 
+                    dataGridView.Rows[i].Cells[9].Value = GlobalData.ExtendCount;
+                    totalExtendCount = totalExtendCount + GlobalData.ExtendCount;
+                }
+                else
+                {
+
+                    dataGridView.Rows[i].Cells[9].Value = "0";
+                }
+
+                if (GlobalData.isInsideOfBrackets)
+                {
+                    dataGridView.Rows[i].Cells[9].Value = GlobalData.ExtendValueinsideBra;
+                    totalExtendCount = totalExtendCount + GlobalData.ExtendValueinsideBra;
+                    GlobalData.ExtendValueinsideBra = 0;
+                    GlobalData.isInsideOfBrackets = false;
+                }
 
                 //calculate total score
                 totalCs =  totalCs + scoreCs;
-                totalExtendCount = totalExtendCount + GlobalData.ExtendCount;
+                //totalExtendCount = totalExtendCount + GlobalData.ExtendCount + GlobalData.ExtendValueinsideBra;
                 GlobalData.isExtendedRow = false;
                 GlobalData.ExtendCount = 0;
             }
@@ -116,6 +130,18 @@ namespace ComplexityTool
             txtCode.SelectAll();
             txtCode.Focus();
         }
-    
+
+        private void btnReset_Click(object sender, EventArgs e)
+        {
+            GlobalData.bracketsList.Clear();
+            GlobalData.className = string.Empty;
+            GlobalData.ExtendCount = 0;
+            GlobalData.ExtendValueinsideBra = 0;
+            GlobalData.isExtendedRow = false;
+            GlobalData.isInsideOfBrackets = false;
+            GlobalData.list.Clear();
+            txtCode.Text = string.Empty;
+            dataGridView.Rows.Clear();
+        }
     }
 }
